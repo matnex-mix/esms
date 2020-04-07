@@ -95,7 +95,10 @@ function composePage(){
 
 	function onSuccess(contacts) {
     	window.contacts = contacts;
-    	console.log( contacts );
+    	
+    	contacts.forEach(function( d ){
+    		k.innerHTML += '<button onclick="$(\'#to\').val( this.value );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>'
+    	});
 	};
 	 
 	// find all contacts with 'Bob' in any name field
