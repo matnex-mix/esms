@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html style='overflow-x: hidden'>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+
+		<link rel='stylesheet' href='assets/minify/bootstrap.min.css' type='text/css'>
+		<link rel='stylesheet' href='assets/minify/fontawesome5/css/all.min.css' type='text/css'>
+		<link rel='stylesheet' href='assets/css/style.css' type='text/css'>
+
+		<script src="assets/minify/jquery.min.js"></script>
+		<script src='assets/minify/bootstrap.bundle.min.js'></script>
+		<script src='assets/minify/chart.bundle.min.js'></script>
+		<script src='assets/minify/jaxify.js'></script>
+		<script src='assets/minify/localforage.min.js'></script>
+		<script src='assets/js/app.js'></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+
+		<div class="fixed-top w-100 h-100 bg-white d-flex align-items-center justify-content-center">
+			<img src="assets/images/logo.png" style="max-width: 200px; opacity: .2" />
+
+			<div class="position-absolute bg-transparent w-100 h-100 d-flex align-items-center justify-content-center p-4" style="top: 0;">
+				<form class="w-100" onsubmit="login(); return false;" style="max-width: 366px">
+					<h4 class="mb-5">
+						<b>Sign In</b>
+					</h4>
+
+					<input id="username" class="form-control bg-transparent border-secondary mb-4 pl-4" style="border-radius: 20px; height: 46px;" placeholder="Username" />
+
+					<input type="password" id="password" class="form-control bg-transparent border-secondary mb-4 pl-4" style="border-radius: 20px; height: 46px;" placeholder="Password" />
+
+					<button type="submit" class="btn btn-warning w-100 mb-4" style="border-radius: 20px; height: 46px;">LOGIN</button>
+
+					<p align="center">
+						<span id="content"><a href="register.html">Create account</a>
+						&nbsp;<b>|</b>&nbsp;</span>
+						<a href="recover_password.html">Password recovery</a>
+					</p>
+				</form>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$(document).ready( loginPage );
+		</script>
+	</body>
+</html>

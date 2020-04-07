@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Set app name icon and add necessary plugins including encryption, sms plugin-->
+	<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="ng.com.mjmltd.esms" version="1.0.0">
+		<name>Encrypted SMS</name>
+		<description>
+			Send protected contents to your friends, foe and family.
+		</description>
+
+		<author href="http://mjmltd.com.ng" email="info@mjmltd.com.ng">
+			Matnex Mix
+		</author>
+
+		<icon src="icon.png" />
+		<splash src="splash.gif" />
+
+		<plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
+		<plugin spec="https://github.com/cordova-sms/cordova-sms-plugin.git" />
+		<plugin spec="https://github.com/apache/cordova-plugin-contacts.git" />
+
+		<allow-intent href="sms:*" />
+	
+	</widget>

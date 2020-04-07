@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html style='overflow-x: hidden'>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+
+		<link rel='stylesheet' href='assets/minify/bootstrap.min.css' type='text/css'>
+		<link rel='stylesheet' href='assets/minify/fontawesome5/css/all.min.css' type='text/css'>
+		<link rel='stylesheet' href='assets/css/style.css' type='text/css'>
+
+		<script src="assets/minify/jquery.min.js"></script>
+		<script src='assets/minify/bootstrap.bundle.min.js'></script>
+		<script src='assets/minify/chart.bundle.min.js'></script>
+		<script src='assets/minify/jaxify.js'></script>
+		<script src='assets/minify/localforage.min.js'></script>
+		<script src='assets/js/app.js'></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+
+		<div class="fixed-bottom d-flex align-items-center justify-content-around bg-warning p-2" style="eight: 48px;">
+			<button class="btn">
+				<i class="fa fa-arrow-circle-up"></i>
+				Outbox
+			</button>
+			<button class="btn">
+				<i class="fa fa-arrow-circle-down"></i>
+				Inbox&nbsp;<small id="unread-counter" class="badge badge-pill badge-success">2</small>
+			</button>
+		</div>
+
+		<a href="compose.html" class="btn btn-danger shadow-sm position-fixed" style="bottom: 82px; right: 30px; border-radius: 25px;">
+			<i class="fa fa-plus"></i>
+		</a>
+		
+		<script type="text/javascript">
+			$(document).ready( homePage );
+		</script>
+	</body>
+</html>
