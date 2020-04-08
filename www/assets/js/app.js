@@ -93,11 +93,11 @@ function composePage(){
 
 	var k = $('#contacts')[0];
 
-	navigator.contactsPhoneNumbers.list(function(contacts) {
+	/*navigator.contactsPhoneNumbers.list(function(contacts) {
       for(var i = 0; i < contacts.length; i++) {
     	k.innerHTML += '<button type="button" onclick="select( this );" value="'+contacts[i].phoneNumbers[0].number+'" class="list-group-item list-group-item-action py-1 px-3">'+contacts[i].displayName+'</button>';
       }
-   });
+   });*/
 
 }
 
