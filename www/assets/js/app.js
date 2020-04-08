@@ -91,6 +91,7 @@ function toggleCoverScreen(){
 
 function composePage(){
 
+	alert( 'PPP' );
 	alert( navigator.contacts );
 
 	var k = $('#contacts')[0];
