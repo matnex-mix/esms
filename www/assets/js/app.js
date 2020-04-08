@@ -130,57 +130,68 @@ function select( el ){
 
 function sendMessage(){
 
-	toggleCoverScreen();
-	s = $('#state');
+	try {
 
-	to = $('#to').val().trim();
-	key = $('#key').val();
-	msg = $('#message').val().trim();
-
-	s.html('Encrypting message...');
-	msg = Encrypt( key, msg );
-
-	console.log( msg );
-	var options = {
-        replaceLineBreaks: false, // true to replace \n by a new line, false by default
-        android: {
-            intent: 'INTENT'  // send SMS with the native android SMS messaging
-            //intent: '' // send SMS without opening any other app
-        }
-    };
-
-    var success = function () {
-		s.html('Message sent successfully!');
 		toggleCoverScreen();
-    };
+		s = $('#state');
 
-    var error = function (e) { alert('Message Failed:' + e); };
-    if(SMS){
-		s.html('Sending...');
-    	SMS.sendSMS( to, msg, success, error );
-    }
+		to = $('#to').val().trim();
+		key = $('#key').val();
+		msg = $('#message').val().trim();
+
+		s.html('Encrypting message...');
+		msg = Encrypt( key, msg );
+
+		var options = {
+	        replaceLineBreaks: false, // true to replace \n by a new line, false by default
+	        android: {
+	            intent: 'INTENT'  // send SMS with the native android SMS messaging
+	            //intent: '' // send SMS without opening any other app
+	        }
+	    };
+
+	    var success = function () {
+			s.html('Message sent successfully!');
+			toggleCoverScreen();
+	    };
+
+	    var error = function (e) { alert('Message Failed:' + e); };
+	    if( window.SMS ){
+			s.html('Sending...');
+	    	SMS.sendSMS( to, msg, success, error );
+	    }
+
+	} catch( err ){
+		alert( err );
+	}
 
 }
 
 function HomePage(){
 
-	var filter = {
-		box : 'inbox',
-		indexFrom : 0,
-		maxCount : 10,
-	};
+	try {
 
-	if(SMS){
-		SMS.listSMS( filter, function(data){
-			
-			if( Array.isArray(data) ){
-				for(var i in data) {
-					var sms = data[i];
-					alert( sms );
+		var filter = {
+			box : 'inbox',
+			indexFrom : 0,
+			maxCount : 10,
+		};
+
+		if( window.SMS ){
+			SMS.listSMS( filter, function(data){
+				
+				if( Array.isArray(data) ){
+					for(var i in data) {
+						var sms = data[i];
+						alert( sms );
+					}
 				}
-			}
-		
-		});
+			
+			});
+		}
+
+	} catch( err ){
+		alert( err );
 	}
 
 }
