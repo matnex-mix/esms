@@ -86,6 +86,7 @@ function checkAnswer(){
 function toggleCoverScreen(){
 
 	$('#cover-screen').toggleClass('d-flex');
+	$('#cover-screen').toggleClass('d-none');
 
 }
 
