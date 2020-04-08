@@ -184,7 +184,7 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
-						alert( sms );
+						alert( JSON.stringify(sms) );
 					}
 				}
 			
