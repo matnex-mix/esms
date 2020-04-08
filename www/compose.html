@@ -33,7 +33,7 @@
 				</div>
 				<div class="d-flex p-3 align-items-center bg-white" >
 					<div class="position-relative flex-grow-1">
-						<input type="tel" id="to" list="contacts" class="border-0 w-100 datalist" autofocus />
+						<input type="tel" id="to" list="contacts" class="border-0 w-100 datalist" onkeyup="filterContacts( this );" autofocus />
 						<div class="list-group rounded-0" id="contacts">
 						</div>
 					</div>
@@ -60,13 +60,12 @@
 		<style type="text/css">
 
 			.datalist+div {
-				display: none;
+				isplay: none;
 				position: absolute;
 				left: 0;
 				width: 100%;
 				top: 30px;
 				max-height: 350px;
-				overflow-y: auto;
 			}
 
 			.datalist:focus+div{

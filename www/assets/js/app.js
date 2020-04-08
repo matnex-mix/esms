@@ -97,7 +97,7 @@ function composePage(){
     	window.contacts = contacts;
     	
     	contacts.forEach(function( d ){
-    		k.innerHTML += '<button onclick="$(\'#to\').val( this.value );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>'
+    		k.innerHTML += '<button type="button" onclick="select( this );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>';
     	});
 	};
 	 
@@ -118,5 +118,32 @@ function composePage(){
 	];
 	
 	navigator.contacts.find( fields, onSuccess, function(){}, options );
+
+}
+
+function filterContacts( el ){
+
+	f = el.value.toLowerCase();
+	e = el.nextElementSibling;
+	e.classList.remove( 'd-none' );
+	e = e.children;
+
+	for( x=0; x<e.length; x++ ){
+		q = e[x];
+
+		if( q.innerHTML.toLowerCase().indexOf( f )==-1 && q.value.toLowerCase().indexOf( f )==-1 ){
+			q.classList.add('d-none');
+		} else {
+			q.classList.remove('d-none');
+		}
+	}
+
+}
+
+function select( el ){
+
+	e = el.parentElement;
+	e.previousElementSibling.value = el.value;
+	e.classList.add( 'd-none' );
 
 }
