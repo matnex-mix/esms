@@ -96,7 +96,7 @@ function composePage(){
 	function onSuccess(contacts) {
     	window.contacts = contacts;
     	
-    	for( x in contacts ){
+    	for( x=0; x<contacts.length; x++ ){
     		d = contacts[x];
     		k.innerHTML += '<button type="button" onclick="select( this );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>';
     		alert( d.id );
@@ -119,7 +119,7 @@ function composePage(){
 		navigator.contacts.fieldType.name
 	];
 	
-	navigator.contacts.find( fields, onSuccess, function(){}, options );
+	navigator.contacts.find( fields, onSuccess, function( e ){}, options );
 
 }
 

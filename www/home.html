@@ -20,12 +20,36 @@
 	</head>
 	<body>
 
+		<div id="outbox" class="tabs list-group">
+			<a href="outbox.html#" class="list-group-item rounded-0 text-dark">
+				<h5>
+					<b>Mama Laja</b>
+				</h5>
+				<p class="mb-1">
+					<small class="float-right">Yesterday</small>
+					Thanks for the other days i really appreciate.
+				</p>
+			</a>
+		</div>
+
+		<div id="inbox" class="tabs d-none">
+			<a href="outbox.html#" class="list-group-item rounded-0 text-dark">
+				<h5>
+					<b>+2349035359297</b>
+				</h5>
+				<p class="mb-1">
+					<small class="float-right">Yesterday</small>
+					Thanks for the other days i really appreciate.
+				</p>
+			</a>
+		</div>
+
 		<div class="fixed-bottom d-flex align-items-center justify-content-around bg-warning p-2" style="eight: 48px;">
-			<button class="btn">
+			<button class="btn" onclick="$('.tabs').toggleClass('d-none');">
 				<i class="fa fa-arrow-circle-up"></i>
 				Outbox
 			</button>
-			<button class="btn">
+			<button class="btn" onclick="$('.tabs').toggleClass('d-none');">
 				<i class="fa fa-arrow-circle-down"></i>
 				Inbox&nbsp;<small id="unread-counter" class="badge badge-pill badge-success">2</small>
 			</button>
