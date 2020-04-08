@@ -91,6 +91,8 @@ function toggleCoverScreen(){
 
 function composePage(){
 
+	alert( navigator.contacts );
+
 	var k = $('#contacts')[0];
 
 	function onSuccess(contacts) {
