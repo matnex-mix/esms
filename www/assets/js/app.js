@@ -168,7 +168,7 @@ function sendMessage(){
 
 }
 
-function HomePage(){
+function homePage(){
 
 	try {
 
