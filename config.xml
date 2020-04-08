@@ -15,7 +15,7 @@
 
 		<plugin name="cordova-plugin-contacts" spec="~3.0.1" />
 		<plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
-		<plugin spec="https://github.com/cordova-sms/cordova-sms-plugin.git" />
+		<gap:plugin name="cordova-plugin-sms" source="npm" />
 
 		<allow-intent href="sms:*" />
 	
