@@ -13,9 +13,9 @@
 		<icon src="icon.png" />
 		<splash src="splash.gif" />
 
+		<plugin name="cordova-plugin-contacts" spec="~3.0.1" />
 		<plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
 		<plugin spec="https://github.com/cordova-sms/cordova-sms-plugin.git" />
-		<plugin spec="https://github.com/apache/cordova-plugin-contacts.git" />
 
 		<allow-intent href="sms:*" />
 	
