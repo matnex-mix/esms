@@ -98,6 +98,7 @@ function composePage(){
     	
     	contacts.forEach(function( d ){
     		k.innerHTML += '<button type="button" onclick="select( this );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>';
+    		alert( d.id );
     	});
 	};
 	 
