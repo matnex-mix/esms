@@ -13,9 +13,9 @@
 		<icon src="icon.png" />
 		<splash src="splash.gif" />
 
-		<plugin name="cordova-plugin-contacts" spec="~3.0.1" />
 		<plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
 		<gap:plugin name="cordova-plugin-sms" source="npm" />
+		<gap:plugin name="cordova-plugin-contacts-phonenumbers" source="npm" />
 
 		<allow-intent href="sms:*" />
 	

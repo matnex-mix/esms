@@ -91,38 +91,13 @@ function toggleCoverScreen(){
 
 function composePage(){
 
-	alert( 'PPP' );
-	alert( navigator.contacts );
-
 	var k = $('#contacts')[0];
 
-	function onSuccess(contacts) {
-    	window.contacts = contacts;
-    	
-    	for( x=0; x<contacts.length; x++ ){
-    		d = contacts[x];
-    		k.innerHTML += '<button type="button" onclick="select( this );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>';
-    		alert( d.id );
-    	}
-	};
-	 
-	// find all contacts with 'Bob' in any name field
-	var options = new ContactFindOptions();
-	
-	options.filter   = "*";
-	options.multiple = true;
-	options.desiredFields = [
-		navigator.contacts.fieldType.id,
-		navigator.contacts.fieldType.name
-	];
-	options.hasPhoneNumber = true;
-	
-	var fields = [
-		navigator.contacts.fieldType.displayName,
-		navigator.contacts.fieldType.name
-	];
-	
-	navigator.contacts.find( fields, onSuccess, function( e ){}, options );
+	navigator.contactsPhoneNumbers.list(function(contacts) {
+      for(var i = 0; i < contacts.length; i++) {
+    	k.innerHTML += '<button type="button" onclick="select( this );" value="'+contacts[i].phoneNumbers[0].number+'" class="list-group-item list-group-item-action py-1 px-3">'+contacts[i].displayName+'</button>';
+      }
+   });
 
 }
 
