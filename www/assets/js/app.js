@@ -161,3 +161,26 @@ function sendMessage(){
     }
 
 }
+
+function HomePage(){
+
+	var filter = {
+		box : 'inbox',
+		indexFrom : 0,
+		maxCount : 10,
+	};
+
+	if(SMS){
+		SMS.listSMS( filter, function(data){
+			
+			if( Array.isArray(data) ){
+				for(var i in data) {
+					var sms = data[i];
+					alert( sms );
+				}
+			}
+		
+		});
+	}
+
+}
