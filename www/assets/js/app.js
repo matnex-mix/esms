@@ -130,8 +130,15 @@ function select( el ){
 
 function sendMessage(){
 
-	to = $('#to').val();
-	msg = $('#message').val();
+	toggleCoverScreen();
+	s = $('#state');
+
+	to = $('#to').val().trim();
+	key = $('#key').val();
+	msg = $('#message').val().trim();
+
+	s.html('Encrypting message...');
+	msg = Encrypt( key, msg );
 
 	console.log( msg );
 	var options = {
@@ -142,8 +149,15 @@ function sendMessage(){
         }
     };
 
-    var success = function () { alert('Message sent successfully'); };
+    var success = function () {
+		s.html('Message sent successfully!');
+		toggleCoverScreen();
+    };
+
     var error = function (e) { alert('Message Failed:' + e); };
-    if(SMS) SMS.sendSMS( to, msg, success, error );
+    if(SMS){
+		s.html('Sending...');
+    	SMS.sendSMS( to, msg, success, error );
+    }
 
 }

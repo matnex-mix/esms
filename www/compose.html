@@ -15,6 +15,9 @@
 		<script src='assets/minify/localforage.min.js'></script>
 		<script src='assets/js/app.js'></script>
 		<script src="../cordova.js"></script>
+		<script src="assets/js/helper.js"></script>
+		<script src="assets/js/encrypt.js"></script>
+		<script src="assets/js/decrypt.js"></script>
 		<style>
 			
 		</style>
@@ -39,6 +42,14 @@
 					</div>
 
 					<i class="fa fa-user-plus fa-lg text-secondary"></i>
+				</div>
+				<div class="p-3 bg-white border-top" >
+					<div class="position-relative">
+						<input id="key" type="password" class="form-control" placeholder="Secret Key" />
+						<button type="button" onclick="e=$('#key')[0];if(e.type=='password'){e.type='';}else{e.type='password';}e.focus();" class="btn position-absolute text-secondary" style="top: 0; right: 0">
+							<i class="fa fa-eye-slash"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 
