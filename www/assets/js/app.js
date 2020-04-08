@@ -96,10 +96,11 @@ function composePage(){
 	function onSuccess(contacts) {
     	window.contacts = contacts;
     	
-    	contacts.forEach(function( d ){
+    	for( x in contacts ){
+    		d = contacts[x];
     		k.innerHTML += '<button type="button" onclick="select( this );" value="'+d.id+'" class="list-group-item list-group-item-action py-1 px-3">'+d.displayName+'</button>';
     		alert( d.id );
-    	});
+    	}
 	};
 	 
 	// find all contacts with 'Bob' in any name field
