@@ -175,7 +175,28 @@ function sendMessage(){
 
 }
 
+function locationHashChanged() {
+	if( location.hash ){
+	    el = $('[href="'+location.hash+'"]');
+
+	    if( el.length ){
+	    	el = el[0];
+
+	    	body = el.getAttribute('body');
+	    	key = prompt('Secure key?');
+
+	    	if( key ){
+	    		msg = Decrypt( key, body );
+	    		$('#real-message').html( msg );
+	    		$('#show-message').modal();
+	    	}
+	    }
+	}
+}
+
 function homePage(){
+
+	window.onhashchange = locationHashChanged;
 
 	inbox = $('#inbox')[0];
 	outbox = $('#outbox')[0];
@@ -193,7 +214,7 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
-						alert( JSON.parse(sms) );
+						alert( JSON.stringify(sms) );
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -201,7 +222,7 @@ function homePage(){
 						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
 
 						outbox.innerHTML += '\
-						<a href="outbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark" >\
+						<a href="#outbox'+sms.id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" >\
 							<h5>\
 								<b>'+sms.address+'</b>\
 							</h5>\
@@ -237,7 +258,7 @@ function homePage(){
 						window.unread += (sms.read-1)*-1;
 
 						inbox.innerHTML += '\
-						<a href="inbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark"'+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
+						<a href="#inbox-'+sms.id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" '+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
 							<h5>\
 								<b>'+sms.address+'</b>\
 							</h5>\
