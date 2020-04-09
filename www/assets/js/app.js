@@ -170,12 +170,14 @@ function sendMessage(){
 
 function homePage(){
 
+	inbox = $('#inbox')[0];
+	outbox = $('#outbox')[0];
 	try {
 
 		var filter = {
-			box : 'inbox',
+			box : 'outbox',
 			indexFrom : 0,
-			maxCount : 10,
+			maxCount : 1000,
 		};
 
 		if( window.SMS ){
@@ -184,7 +186,54 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
-						alert( JSON.stringify(sms) );
+						
+						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+						d = new Date(sms.date_sent);
+						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
+
+						outbox.innerHTML += '\
+						<a href="outbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark"'+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
+							<h5>\
+								<b>'+sms.address+'</b>\
+							</h5>\
+							<p class="mb-1">\
+								<small class="float-right">'+time_string+'.</small>\
+								'+sms.body.substring( 0, 50 )+'\
+							</p>\
+						</a>';
+					}
+				}
+			
+			});
+
+			SMS.listSMS( {
+
+				box : 'inbox',
+				indexFrom : 0,
+				maxCount : 1000,
+
+			}, function(data){
+				
+				if( Array.isArray(data) ){
+					for(var i in data) {
+						var sms = data[i];
+						
+						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+						d = new Date(sms.date_sent);
+						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
+
+						inbox.innerHTML += '\
+						<a href="inbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark"'+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
+							<h5>\
+								<b>'+sms.address+'</b>\
+							</h5>\
+							<p class="mb-1">\
+								<small class="float-right">'+time_string+'</small>\
+								'+sms.body.substring( 0, 50 )+'\
+							</p>\
+						</a>';
 					}
 				}
 			
