@@ -192,6 +192,7 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
+						alert( sms );
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -205,7 +206,7 @@ function homePage(){
 							</h5>\
 							<p class="mb-1">\
 								<small class="float-right">'+time_string+'.</small>\
-								'+sms.body.substring( 0, 50 )+'\
+								'+sms.body.substring( 0, 50 )+'...\
 							</p>\
 						</a>';
 					}
@@ -237,7 +238,7 @@ function homePage(){
 							</h5>\
 							<p class="mb-1">\
 								<small class="float-right">'+time_string+'</small>\
-								'+sms.body.substring( 0, 50 )+'\
+								'+sms.body.substring( 0, 50 )+'...\
 							</p>\
 						</a>';
 					}
