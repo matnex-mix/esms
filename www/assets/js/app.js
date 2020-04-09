@@ -153,10 +153,16 @@ function sendMessage(){
 
 	    var success = function () {
 			s.html('Message sent successfully!');
-			toggleCoverScreen();
+			setTimeout(function(){
+				toggleCoverScreen();
+			}, 600);
 	    };
 
-	    var error = function (e) { alert('Message Failed:' + e); };
+	    var error = function (e) {
+			toggleCoverScreen();
+	    	alert('Message Failed:' + e);
+	    };
+
 	    if( window.SMS ){
 			s.html('Sending...');
 	    	SMS.sendSMS( to, msg, success, error );
