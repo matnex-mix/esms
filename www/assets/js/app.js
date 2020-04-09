@@ -155,7 +155,8 @@ function sendMessage(){
 			s.html('Message sent successfully!');
 			setTimeout(function(){
 				toggleCoverScreen();
-			}, 600);
+				location.href = 'home.html';
+			}, 1000);
 	    };
 
 	    var error = function (e) {
@@ -181,7 +182,7 @@ function homePage(){
 	try {
 
 		var filter = {
-			box : 'outbox',
+			box : 'sent',
 			indexFrom : 0,
 			maxCount : 1000,
 		};
