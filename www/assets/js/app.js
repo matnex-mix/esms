@@ -193,15 +193,15 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
-						alert( sms );
+						alert( JSON.parse(sms) );
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-						d = new Date(sms.date_sent);
+						d = new Date(sms.date);
 						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
 
 						outbox.innerHTML += '\
-						<a href="outbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark"'+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
+						<a href="outbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark" >\
 							<h5>\
 								<b>'+sms.address+'</b>\
 							</h5>\
