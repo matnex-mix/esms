@@ -215,6 +215,8 @@ function homePage(){
 			
 			});
 
+			window.unread = 0;
+
 			SMS.listSMS( {
 
 				box : 'inbox',
@@ -232,6 +234,8 @@ function homePage(){
 						d = new Date(sms.date_sent);
 						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
 
+						window.unread += (sms.read-1)*-1;
+
 						inbox.innerHTML += '\
 						<a href="inbox.html#'+sms.id+'" class="list-group-item rounded-0 text-dark"'+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
 							<h5>\
@@ -246,6 +250,12 @@ function homePage(){
 				}
 			
 			});
+
+			if( window.unread==0 ){
+				$('#unread-counter').toggleClass('d-none');
+			} else {	
+				$('#unread-counter').html( window.unread );
+			}
 		}
 
 	} catch( err ){
