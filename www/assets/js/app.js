@@ -156,7 +156,7 @@ function sendMessage(){
 			setTimeout(function(){
 				toggleCoverScreen();
 				location.href = 'home.html';
-			}, 1000);
+			}, 2000);
 	    };
 
 	    var error = function (e) {
@@ -214,7 +214,6 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
-						alert( JSON.stringify(sms) );
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -222,7 +221,7 @@ function homePage(){
 						time_string = days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
 
 						outbox.innerHTML += '\
-						<a href="#outbox'+sms.id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" >\
+						<a href="#outbox'+sms._id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" >\
 							<h5>\
 								<b>'+sms.address+'</b>\
 							</h5>\
@@ -258,7 +257,7 @@ function homePage(){
 						window.unread += (sms.read-1)*-1;
 
 						inbox.innerHTML += '\
-						<a href="#inbox-'+sms.id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" '+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
+						<a href="#inbox-'+sms._id+'" class="list-group-item rounded-0 text-dark" body="'+sms.body+'" '+( sms.read!=1 ? ' style="background-color: #aaa;"' : '' )+'>\
 							<h5>\
 								<b>'+sms.address+'</b>\
 							</h5>\
