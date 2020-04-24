@@ -25,19 +25,38 @@
 	<body>
 
 		<div id="outbox" class="tabs list-group mb-5 pb-4">
+			<div class="d-flex bg-success p-2 align-items-center text-light">
+				<span class="ml-3">
+					Sent Messages
+				</span>
+			</div>
+			<!--a href="#outbox2" class="list-group-item rounded-0 text-dark" body="AGAAAACGATTGATTTACATAACAATAGTATTTAATTTTCTGTGTTCCTAACACACAGCG" >
+				<h5>
+					<b>'+sms.address+'</b>
+				</h5>
+				<p class="mb-1">
+					<small class="float-right">'+time_string+'.</small>
+					'+sms.body.substring( 0, 50 )+'...
+				</p>
+			</a-->
 		</div>
 
 		<div id="inbox" class="tabs list-group d-none mb-5 pb-4">
+			<div class="d-flex bg-success p-2 align-items-center text-light">
+				<span class="ml-3">
+					Inbox
+				</span>
+			</div>
 		</div>
 
-		<div class="fixed-bottom d-flex align-items-center justify-content-around bg-warning p-2" style="eight: 48px;">
-			<button class="btn" onclick="$('.tabs').toggleClass('d-none');" autofocus >
+		<div class="fixed-bottom d-flex align-items-center justify-content-around bg-success p-2" style="eight: 48px;">
+			<button class="btn" onclick="$('#outbox').removeClass('d-none'); $('#inbox').addClass('d-none');" autofocus >
 				<i class="fa fa-arrow-circle-up"></i>
 				Outbox
 			</button>
-			<button class="btn" onclick="$('.tabs').toggleClass('d-none');">
+			<button class="btn" onclick="$('#inbox').removeClass('d-none'); $('#outbox').addClass('d-none');">
 				<i class="fa fa-arrow-circle-down"></i>
-				Inbox&nbsp;<small id="unread-counter" class="badge badge-pill badge-success">0</small>
+				Inbox&nbsp;<small id="unread-counter" class="badge badge-pill badge-danger">0</small>
 			</button>
 		</div>
 

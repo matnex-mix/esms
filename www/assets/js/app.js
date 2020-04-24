@@ -26,7 +26,7 @@ function register(){
 			recoveryAnswer: recoveryAnswer,
 		}).then( function( val ){
 			alert( 'user registered!' );
-			location.href = 'login.html';
+			location.replace( 'login.html' );
 		} );
 
 		return;
@@ -52,7 +52,7 @@ function login(){
 	password = $('#password').val();
 
 	if( username==user.username.toLowerCase() && password==user.password ){
-		location.href = 'home.html';
+		location.replace( 'home.html' );
 		return;
 	} else {
 		alert( 'invalid username or password' );
@@ -155,7 +155,7 @@ function sendMessage(){
 			s.html('Message sent successfully!');
 			setTimeout(function(){
 				toggleCoverScreen();
-				location.href = 'home.html';
+				//location.href = 'home.html';
 			}, 2000);
 	    };
 
@@ -170,7 +170,7 @@ function sendMessage(){
 	    }
 
 	} catch( err ){
-		alert( err );
+		alert( err.toString() );
 	}
 
 }
@@ -191,6 +191,8 @@ function locationHashChanged() {
 	    		$('#show-message').modal();
 	    	}
 	    }
+
+	    location.hash = '';
 	}
 }
 

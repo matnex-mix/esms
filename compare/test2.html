@@ -1,0 +1,202 @@
+<script src="v2/helper.js"></script>
+<script src="v2/dna.js"></script>
+<script src="v2/dna_rns.js"></script>
+<script src="v2/rna.js"></script>
+<script src="v2/rna_rns.js"></script>
+
+<div id="login">
+	<div id="bg"></div>
+
+	<div id="content">
+		<h3>Login</h3>
+		<span>Username:</span>
+		<input type="text" id="uname" />
+		<br/>
+
+		<span>Password:</span>
+		<input type="password" id="pswd" />
+		<br/>
+
+		<button onclick="login();">LOGIN</button>
+	</div>
+</div>
+
+<table width="100%">
+	<tr>
+		<td width="50%" valign="top">
+			<h4><u>Encryption Scheme Application</u></h4>
+
+			<span>Cryptography Algorithm:</span>
+			<br/>
+			<select id="e_algo">
+				<option>DNA</option>
+				<option>RNA</option>
+				<option>RNS-DNA</option>
+				<option>RNS-RNA</option>
+			</select>
+
+
+			<span>Key:</span>
+			<br/>
+			<input id="e_key" height="50" />
+			
+
+			<span>Message:</span>
+			<button onclick="e_inp.value='';">clear</button>
+			<br/>
+			<textarea rows="10" cols="40" id="e_inp" autocomplete="off" ></textarea>
+
+			<button onclick="Encrypt();">Encrypt</button>
+
+			<br/>
+			<h4>Result <button onclick="e_res.value=''; e_res_size.innerHTML='0'; e_res_time.innerHTML='0';">clear</button></h4>
+			<p>
+				Memory Size: <span id="e_res_size">0</span>B
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				Execution Time: <span id="e_res_time">0</span>s
+			</p>
+			<textarea rows="10" cols="40" id="e_res" autocomplete="off" ></textarea>
+		</td>
+		<td width="50%" valign="top">
+			<h4><u>Decryption Scheme Application</u></h4>
+
+			<span>Cryptography Algorithm:</span>
+			<br/>
+			<select id="d_algo">
+				<option>DNA</option>
+				<option>RNA</option>
+				<option>RNS-DNA</option>
+				<option>RNS-RNA</option>
+			</select>
+
+			<span>Key:</span>
+			<br/>
+			<input id="d_key" height="50" />
+
+			<span>Ciphertext:</span>
+			<button onclick="d_inp.value='';">clear</button>
+			<br/>
+			<textarea rows="10" cols="40" id="d_inp" autocomplete="off" ></textarea>
+
+			<button onclick="Decrypt();">Decrypt</button>
+
+			<br/>
+			<h4>Result <button onclick="d_res.value=''; d_res_size.innerHTML='0'; d_res_time.innerHTML='0';">clear</button></h4>
+			<p>
+				Memory Size: <span id="d_res_size">0</span>B
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				Execution Time: <span id="d_res_time">0</span>s
+			</p>
+			<textarea rows="10" cols="40" id="d_res" autocomplete="off" ></textarea>
+		</td>
+	</tr>
+</table>
+
+<style type="text/css">
+	body {
+		background: #eee;
+		font-family: 'Tahoma';
+		font-size-adjust: 10%;
+	}
+
+	textarea, select, input {
+		min-width: 250px;
+		min-height: 30px;
+		display: block;
+		border: 1px solid lightgrey;
+		border-radius: 5px;
+		margin-bottom: 10px;
+	}
+
+	button {
+		background: royalblue;
+		border: 1px solid royalblue;
+		padding: .2rem 1rem;
+		border-radius: 2px;
+	}
+
+	#login {
+		position: fixed;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+	}
+
+	#login #bg {
+		background: rgba(0,0,0,.6);
+		width: 100%; height: 100%;
+	}
+
+	#login #content {
+		position: fixed;
+		top: calc(50% - 130px);
+		left: calc(50% - 150px);
+		width: 300px;
+		height: 260px;
+		background: white;
+		padding: 1.5rem;
+		border-radius: 10px;
+	}
+</style>
+
+<script type="text/javascript">
+	
+	e_algo = document.getElementById('e_algo');
+	e_key = document.getElementById('e_key');
+	e_inp = document.getElementById('e_inp');
+	e_res = document.getElementById('e_res');
+	e_res_size = document.getElementById('e_res_size');
+	e_res_time = document.getElementById('e_res_time');
+	
+	d_algo = document.getElementById('d_algo');
+	d_key = document.getElementById('d_key');
+	d_inp = document.getElementById('d_inp');
+	d_res = document.getElementById('d_res');
+	d_res_size = document.getElementById('d_res_size');
+	d_res_time = document.getElementById('d_res_time');
+
+	function Encrypt() {
+		e_res.value = '...';
+
+		if( !e_key.value || !e_inp.value ){
+			alert( 'Supply both plaintext and key!' );
+		}
+
+		algo = window[e_algo.children[e_algo.selectedIndex].innerHTML.trim().replace('-', '')];
+		b = new Date();
+		s = algo.encrypt( e_key.value, e_inp.value );
+		
+		e_res.value = s;
+		e_res_size.innerHTML = e_res.value.length;
+		e_res_time.innerHTML = (((new Date())-b)/1000).toFixed(3);
+	}
+
+	function Decrypt() {
+		d_res.value = '...';
+
+		if( !d_key.value || !d_inp.value ){
+			alert( 'Supply both plaintext and key!' );
+		}
+
+		algo = window[d_algo.children[d_algo.selectedIndex].innerHTML.trim().replace('-', '')];
+		b = new Date();
+		s = algo.decrypt( d_key.value, d_inp.value );
+		
+		d_res.value = s;
+		d_res_size.innerHTML = d_res.value.length;
+		d_res_time.innerHTML = (((new Date())-b)/1000).toFixed(3);
+	}
+
+	function login(){
+		uname = document.getElementById('uname');
+		pswd = document.getElementById('pswd');
+
+		if( uname.value!='matnex' || pswd.value!='matnex' ){
+			alert('Invalid username or password');
+			return;
+		}
+
+		modal = document.getElementById('login');
+		modal.remove();
+	}
+
+</script>

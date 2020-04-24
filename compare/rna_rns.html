@@ -1,0 +1,312 @@
+<script src="crypto.js"></script>
+<script src="helper.js"></script>
+<script src="rna_rns/encrypt.js"></script>
+<script src="rna_rns/decrypt.js"></script>
+
+<br/>
+Key:<br/>
+<input id="key" />
+<br/><br/>
+Plaintext:<br/>
+<textarea id="msg"></textarea>
+<br/><br/>
+<input type="submit" value="Generate" onclick="generateData();" />
+<br/><br/>
+
+<table border="1" cellpadding="10" style="border-collapse: collapse;">
+	<thead>
+		<tr>
+			<th rowspan="2">crypto/no</th>
+			<th rowspan="2">Mode</th>
+			<th rowspan="2">Memory Size (B)</th>
+			<th colspan="5">Execution Time (s)</th>	
+		</tr>
+
+		<tr>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>avg</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="this">
+			<th rowspan="2">DNA+KEY</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-this">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="aes">
+			<th rowspan="2">AES</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-aes">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="des">
+			<th rowspan="2">DES</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-des">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="3des">
+			<th rowspan="2">3DES</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-3des">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+
+	function generateData(){
+
+		k = document.getElementById('key').value;
+		m = document.getElementById('msg').value;
+
+		if( !m || !k ){
+			alert( 'fill the form completely' );
+			return;
+		}
+	
+		setTimeout(function(){
+
+			_this = document.getElementById('this');
+			__this = document.getElementById('dec-this');
+
+			this_time1 = 0;
+			this_time2 = 0;
+
+			for( xx=1; xx<6; xx++ ){
+
+				before = new Date();
+				end = Encrypt( k, m );
+				after = new Date();
+
+				_this.children[2].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				_this.children[xx+2].innerHTML = time;
+
+				this_time1 += parseFloat( time );
+
+				before = new Date();
+				end = Decrypt( k, end );
+				after = new Date();
+
+				__this.children[1].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				__this.children[xx+1].innerHTML = time;
+
+				this_time2 += parseFloat( time );
+			
+			}
+
+			console.log( this_time1 );
+			console.log( this_time2 );
+
+			_this.children[8].innerHTML = (this_time1/5).toFixed(4);
+			__this.children[7].innerHTML = (this_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			aes = document.getElementById('aes');
+			d_aes = document.getElementById('dec-aes');
+
+			aes_time1 = 0;
+			aes_time2 = 0;
+
+			for( x=1; x<6; x++ ){
+
+				before = new Date();
+				end = CryptoJS.AES.encrypt( m, k );
+				s = end.ciphertext.toString( CryptoJS.enc.Hex );
+				after = new Date();
+
+				aes.children[2].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				aes.children[x+2].innerHTML = time;
+
+				aes_time1 += parseFloat( time );
+
+				before = new Date();
+				s = CryptoJS.AES.decrypt( end, k ).toString( CryptoJS.enc.Utf8 );
+				after = new Date();
+
+				d_aes.children[1].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				d_aes.children[x+1].innerHTML = time;
+
+				aes_time2 += parseFloat( time );
+
+			}
+
+			aes.children[8].innerHTML = (aes_time1/5).toFixed(4);
+			d_aes.children[7].innerHTML = (aes_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			des = document.getElementById('des');
+			d_des = document.getElementById('dec-des');
+
+			des_time1 = 0;
+			des_time2 = 0;
+
+			for( x=1; x<6; x++ ){
+
+				before = new Date();
+				end = CryptoJS.DES.encrypt( m, k );
+				s = end.ciphertext.toString( CryptoJS.enc.Hex );
+				after = new Date();
+
+				des.children[2].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				des.children[x+2].innerHTML = time;
+
+				des_time1 += parseFloat( time );
+
+				before = new Date();
+				s = CryptoJS.DES.decrypt( end, k ).toString( CryptoJS.enc.Utf8 );
+				after = new Date();
+
+				d_des.children[1].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				d_des.children[x+1].innerHTML = time;
+
+				des_time2 += parseFloat( time );
+
+			}
+
+			des.children[8].innerHTML = (des_time1/5).toFixed(4);
+			d_des.children[7].innerHTML = (des_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			des3 = document.getElementById('3des');
+			d_des3 = document.getElementById('dec-3des');
+
+			des3_time1 = 0;
+			des3_time2 = 0;
+
+			for( x=1; x<6; x++ ){
+
+				before = new Date();
+				end = CryptoJS.TripleDES.encrypt( m, k );
+				s = end.ciphertext.toString( CryptoJS.enc.Hex );
+				after = new Date();
+
+				des3.children[2].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				des3.children[x+2].innerHTML = time;
+
+				des3_time1 += parseFloat( time );
+
+				before = new Date();
+				s = CryptoJS.TripleDES.decrypt( end, k ).toString( CryptoJS.enc.Utf8 );
+				after = new Date();
+
+				d_des3.children[1].innerHTML = s.length;
+				time = ((after-before)/1000).toFixed(3);
+				d_des3.children[x+1].innerHTML = time;
+
+				des3_time2 += parseFloat( time );
+
+			}
+
+			des3.children[8].innerHTML = (des3_time1/5).toFixed(4);
+			d_des3.children[7].innerHTML = (des3_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+
+	}
+
+	function done(){
+
+		if( !window._done ){
+			window._done = 1;
+		}
+
+		window._done++;
+
+		if( window._done==5 ){
+			alert( 'Data Generated!' );
+		}
+
+	}
+
+</script>
