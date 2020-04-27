@@ -142,12 +142,12 @@ function sendMessage(){
 
 		s.html('Encrypting message...');
 		msg = Encrypt( key, msg );
+		alert( msg );
 
 		var options = {
 	        replaceLineBreaks: false, // true to replace \n by a new line, false by default
 	        android: {
-	            intent: 'INTENT'  // send SMS with the native android SMS messaging
-	            //intent: '' // send SMS without opening any other app
+	            intent: '' // send SMS without opening any other app
 	        }
 	    };
 
@@ -155,7 +155,8 @@ function sendMessage(){
 			s.html('Message sent successfully!');
 			setTimeout(function(){
 				toggleCoverScreen();
-				//location.href = 'home.html';
+				history.back();
+				location.reload();
 			}, 2000);
 	    };
 
