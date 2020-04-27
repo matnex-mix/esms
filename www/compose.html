@@ -14,7 +14,6 @@
 		<script src='assets/minify/jaxify.js'></script>
 		<script src='assets/minify/localforage.min.js'></script>
 		<script src='assets/js/app.js'></script>
-		<script src="cordova.js"></script>
 		<script src="../cordova.js"></script>
 		<script src="assets/js/helper.js"></script>
 		<script src="assets/js/encrypt.js"></script>
@@ -36,7 +35,7 @@
 				</div>
 				<div class="d-flex p-3 align-items-center bg-white" >
 					<div class="position-relative flex-grow-1">
-						<input id="to" placeholder="Recepient's phone" list="contacts" class="border-0 w-100 datalist" onkeyup="filterContacts( this );" autofocus />
+						<input id="to" type="tel" placeholder="Recepient's phone" list="contacts" class="border-0 w-100 datalist" onkeyup="filterContacts( this );" autofocus />
 						<div class="list-group rounded-0" id="contacts">
 						</div>
 					</div>

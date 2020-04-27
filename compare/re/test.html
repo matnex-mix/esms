@@ -8,16 +8,34 @@
 	<div id="bg"></div>
 
 	<div id="content">
-		<h3>Login</h3>
-		<span>Username:</span>
-		<input type="text" id="uname" />
-		<br/>
+		<div class="account">
+			<h3>Login</h3>
+			<span>Username:</span>
+			<input type="text" id="uname" />
+			<br/>
 
-		<span>Password:</span>
-		<input type="password" id="pswd" />
-		<br/>
+			<span>Password:</span>
+			<input type="password" id="pswd" />
+			<br/>
+		</div>
 
-		<button onclick="login();">LOGIN</button>
+		<div class="account hide">
+			<h3>Register</h3>
+			<span>Username:</span>
+			<input type="text" id="r-uname" />
+
+			<span>Password:</span>
+			<input type="password" id="r-pswd" />
+
+			<span>Confirm Password:</span>
+			<input type="password" id="r-cpswd" />
+			<br/>
+		</div>
+
+		<button onclick="login();" class="account" >LOGIN</button>
+		<button onclick="toggleHidings();" class="account" style="background: tomato; border-color: tomato;">REGISTER</button>
+		<button onclick="toggleHidings();" class="account hide">Back</button>
+		<button onclick="register();" class="account hide" style="background: tomato; border-color: tomato;">Done</button>
 	</div>
 </div>
 
@@ -128,13 +146,17 @@
 
 	#login #content {
 		position: fixed;
-		top: calc(50% - 130px);
+		top: calc(50% - 140px);
 		left: calc(50% - 150px);
 		width: 300px;
-		height: 260px;
+		height: 280px;
 		background: white;
 		padding: 1.5rem;
 		border-radius: 10px;
+	}
+
+	.hide {
+		display: none;
 	}
 </style>
 
@@ -190,13 +212,59 @@
 		uname = document.getElementById('uname');
 		pswd = document.getElementById('pswd');
 
-		if( uname.value!='matnex' || pswd.value!='matnex' ){
-			alert('Invalid username or password');
-			return;
+		var USER = localStorage.getItem('USER');
+
+		if( USER ){
+			USER = JSON.parse( USER );
+
+			if( uname.value!=USER.u || pswd.value!=USER.p ){
+				alert('Invalid username or password');
+				return;
+			}
+		} else {
+			if( uname.value!='Admin' || pswd.value!='Pass' ){
+				alert('Invalid username or password');
+				return;
+			}
 		}
 
 		modal = document.getElementById('login');
 		modal.remove();
+	}
+
+	function toggleHidings(){
+
+		els = document.querySelectorAll('.account');
+		els.forEach(function(f){
+			f.classList.toggle('hide');
+		});
+
+	}
+
+	function register(){
+		uname = document.getElementById('r-uname');
+		pswd = document.getElementById('r-pswd');
+		cpswd = document.getElementById('r-cpswd');
+
+		if( !uname.value || !pswd.value || !cpswd.value ){
+			alert( 'Fill the form completely' );
+			return;
+		}
+
+		if( pswd.value!=cpswd.value ){
+			alert( 'Passwords must match!' );
+			return;
+		}
+
+		if( localStorage ){
+			localStorage.setItem( 'USER', JSON.stringify({u: uname.value, p: pswd.value}) );
+			alert( 'Registeration successful!' );
+			toggleHidings();
+		} else {
+			alert( 'Registeration is not possible use the default\nusername: (Admin)\npassword: (Pass)' );
+			return;
+		}
+
 	}
 
 </script>

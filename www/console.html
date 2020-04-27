@@ -1,0 +1,23 @@
+<script src="../cordova.js"></script>
+
+<h3>Console</h3>
+<textarea id="code" rows="10" cols="50">Code</textarea>
+
+<br/>
+<button onclick="runCode();" >RUN</button>
+<br/><br/>
+
+<textarea id="output" readonly rows="10" cols="50" >Output</textarea>
+
+<script type="text/javascript">
+	code = document.getElementById('code');
+	output = document.getElementById('output');
+
+	function runCode(){
+		if( code.value.trim()=='cls' ){
+			output.value = '';
+		} else if( code.value.trim() ){
+			output.value = eval(code.value.trim());
+		}
+	}
+</script>
