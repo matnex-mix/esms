@@ -136,7 +136,7 @@ function sendMessage(){
 		toggleCoverScreen();
 		s = $('#state');
 
-		to = $('#to').val().toString().trim();
+		to = String( $('#to').val() ).trim();
 		key = $('#key').val();
 		msg = $('#message').val().trim();
 
@@ -155,8 +155,7 @@ function sendMessage(){
 			s.html('Message sent successfully!');
 			setTimeout(function(){
 				toggleCoverScreen();
-				history.back();
-				location.reload();
+				location.replace('home.html');
 			}, 2000);
 	    };
 
@@ -165,10 +164,8 @@ function sendMessage(){
 	    	alert('Message Failed:' + e);
 	    };
 
-	    if( true || window.SMS ){
-			s.html('Sending...');
-	    	sms.send( to, msg, options, success, error );
-	    }
+		s.html('Sending...');
+    	sms.send( to, msg, options, success, error );
 
 	} catch( err ){
 		alert( err.toString() );
@@ -217,6 +214,10 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
+
+						if( !(new RegExp('^[ACTG]+$')).test( sms.body ) ){
+							continue;
+						}
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -251,6 +252,10 @@ function homePage(){
 				if( Array.isArray(data) ){
 					for(var i in data) {
 						var sms = data[i];
+
+						if( !(new RegExp('^[ACTG]+$')).test( sms.body ) ){
+							continue;
+						}
 						
 						days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 						months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
