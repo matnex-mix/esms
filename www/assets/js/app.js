@@ -136,7 +136,7 @@ function sendMessage(){
 		toggleCoverScreen();
 		s = $('#state');
 
-		to = $('#to').val().trim();
+		to = $('#to').val().toString().trim();
 		key = $('#key').val();
 		msg = $('#message').val().trim();
 
@@ -165,9 +165,9 @@ function sendMessage(){
 	    	alert('Message Failed:' + e);
 	    };
 
-	    if( window.SMS ){
+	    if( true || window.SMS ){
 			s.html('Sending...');
-	    	SMS.sendSMS( to, msg, success, error );
+	    	sms.send( to, msg, options, success, error );
 	    }
 
 	} catch( err ){
