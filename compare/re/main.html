@@ -1,0 +1,307 @@
+<script src="v2/helper.js"></script>
+<script src="v2/dna.js"></script>
+<script src="v2/rna.js"></script>
+<script src="v2/dna_rns.js"></script>
+<script src="v2/rna_rns.js"></script>
+
+<br/>
+Key:<br/>
+<input id="key" />
+<br/><br/>
+Plaintext:<br/>
+<textarea id="msg"></textarea>
+<br/><br/>
+<input type="submit" value="Generate" onclick="generateData();" />
+<br/><br/>
+
+<table border="1" cellpadding="10" style="border-collapse: collapse;">
+	<thead>
+		<tr>
+			<th rowspan="2">crypto/no</th>
+			<th rowspan="2">Mode</th>
+			<th rowspan="2">Memory Size (B)</th>
+			<th colspan="5">Execution Time (s)</th>	
+		</tr>
+
+		<tr>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>avg</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="dna">
+			<th rowspan="2">DNA</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-dna">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="rna">
+			<th rowspan="2">RNA</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-rna">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="rns-dna">
+			<th rowspan="2">RNS-DNA</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-rns-dna">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="rns-rna">
+			<th rowspan="2">RNS-RNA</th>
+			<th>E</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="dec-rns-rna">
+			<th>D</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+
+	function generateData(){
+
+		k = document.getElementById('key').value;
+		m = document.getElementById('msg').value;
+
+		if( !m || !k ){
+			alert( 'fill the form completely' );
+			return;
+		}
+	
+		setTimeout(function(){
+
+			_dna = document.getElementById('dna');
+			__dna = document.getElementById('dec-dna');
+
+			dna_time1 = 0;
+			dna_time2 = 0;
+
+			for( xx=1; xx<6; xx++ ){
+
+				before = new Date();
+				end = DNA.encrypt( k, m );
+				after = new Date();
+
+				_dna.children[2].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				_dna.children[xx+2].innerHTML = time;
+
+				dna_time1 += parseFloat( time );
+
+				before = new Date();
+				end = DNA.decrypt( k, end );
+				after = new Date();
+
+				__dna.children[1].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				__dna.children[xx+1].innerHTML = time;
+
+				dna_time2 += parseFloat( time );
+			
+			}
+
+			_dna.children[8].innerHTML = (dna_time1/5).toFixed(4);
+			__dna.children[7].innerHTML = (dna_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			_rna = document.getElementById('rna');
+			__rna = document.getElementById('dec-rna');
+
+			rna_time1 = 0;
+			rna_time2 = 0;
+
+			for( xx=1; xx<6; xx++ ){
+
+				before = new Date();
+				end = RNA.encrypt( k, m );
+				after = new Date();
+
+				_rna.children[2].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				_rna.children[xx+2].innerHTML = time;
+
+				rna_time1 += parseFloat( time );
+
+				before = new Date();
+				end = RNA.decrypt( k, end );
+				after = new Date();
+
+				__rna.children[1].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				__rna.children[xx+1].innerHTML = time;
+
+				rna_time2 += parseFloat( time );
+			
+			}
+
+			_rna.children[8].innerHTML = (rna_time1/5).toFixed(4);
+			__rna.children[7].innerHTML = (rna_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			_rns_dna = document.getElementById('rns-dna');
+			__rns_dna = document.getElementById('dec-rns-dna');
+
+			rns_dna_time1 = 0;
+			rns_dna_time2 = 0;
+
+			for( xx=1; xx<6; xx++ ){
+
+				before = new Date();
+				end = RNSRNA.encrypt( k, m );
+				after = new Date();
+
+				_rns_dna.children[2].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				_rns_dna.children[xx+2].innerHTML = time;
+
+				rns_dna_time1 += parseFloat( time );
+
+				before = new Date();
+				end = RNSRNA.decrypt( k, end );
+				after = new Date();
+
+				__rns_dna.children[1].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				__rns_dna.children[xx+1].innerHTML = time;
+
+				rns_dna_time2 += parseFloat( time );
+			
+			}
+
+			_rns_dna.children[8].innerHTML = (rns_dna_time1/5).toFixed(4);
+			__rns_dna.children[7].innerHTML = (rns_dna_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+	
+		setTimeout(function(){
+
+			_rns_rna = document.getElementById('rns-rna');
+			__rns_rna = document.getElementById('dec-rns-rna');
+
+			rns_rna_time1 = 0;
+			rns_rna_time2 = 0;
+
+			for( xx=1; xx<6; xx++ ){
+
+				before = new Date();
+				end = RNSRNA.encrypt( k, m );
+				after = new Date();
+
+				_rns_rna.children[2].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				_rns_rna.children[xx+2].innerHTML = time;
+
+				rns_rna_time1 += parseFloat( time );
+
+				before = new Date();
+				end = RNSRNA.decrypt( k, end );
+				after = new Date();
+
+				__rns_rna.children[1].innerHTML = end.length;
+				time = ((after-before)/1000).toFixed(3);
+				__rns_rna.children[xx+1].innerHTML = time;
+
+				rns_rna_time2 += parseFloat( time );
+			
+			}
+
+			_rns_rna.children[8].innerHTML = (rns_rna_time1/5).toFixed(4);
+			__rns_rna.children[7].innerHTML = (rns_rna_time2/5).toFixed(4);
+
+			done();
+
+		}, 100);
+
+	}
+
+	function done(){
+
+		if( !window._done ){
+			window._done = 1;
+		}
+
+		window._done++;
+
+		if( window._done==5 ){
+			alert( 'Data Generated!' );
+		}
+
+	}
+
+</script>

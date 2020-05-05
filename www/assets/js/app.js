@@ -141,7 +141,7 @@ function sendMessage(){
 		msg = $('#message').val().trim();
 
 		s.html('Encrypting message...');
-		msg = Encrypt( key, msg );
+		msg = ALGO.encrypt( key, msg );
 		alert( msg );
 
 		var options = {
@@ -184,7 +184,7 @@ function locationHashChanged() {
 	    	key = prompt('Secure key?');
 
 	    	if( key ){
-	    		msg = Decrypt( key, body );
+	    		msg = ALGO.decrypt( key, body );
 	    		$('#real-message').html( msg );
 	    		$('#show-message').modal();
 	    	}

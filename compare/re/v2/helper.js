@@ -3,16 +3,16 @@ Helper = {
   
   dnaNucleotides: {
     '00': 'A',
-    '01': 'T',
-    '10': 'C',
-    '11': 'G'
+    '01': 'C',
+    '10': 'G',
+    '11': 'T'
   },
   
   rnaNucleotides: {
     '00': 'A',
-    '01': 'U',
-    '10': 'C',
-    '11': 'G'
+    '01': 'C',
+    '10': 'G',
+    '11': 'U'
   },
 
   pad: function( bin ){
@@ -127,7 +127,7 @@ Helper = {
     }
   },
 
-  keyToBin: function( key ){
+  keyFunc: function ( key ){
     var x;
     var _key = 0;
 
@@ -159,11 +159,20 @@ Helper = {
       _key ^= ((i*key.length/w*_x));
     }
 
-    return _key%256;
+    return _key;
+  },
+
+  keyToBin: function( key ){
+    key = Helper.keyFunc( key );
+
+    return key%256;
   },
 
   rnsKeyToBin: function( key, mod ){
-    return Helper.keyToBin( key );
+    key = Helper.keyFunc( key );
+    key = Helper.forward( key, [49, 43, 37] );
+
+    return key[0]^key[1]^key[2];
   },
 
   addZeros: function( text, count ){

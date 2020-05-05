@@ -3,9 +3,16 @@ Helper = {
   
   dnaNucleotides: {
     '00': 'A',
-    '01': 'T',
-    '10': 'C',
-    '11': 'G'
+    '01': 'C',
+    '10': 'G',
+    '11': 'T'
+  },
+  
+  rnaNucleotides: {
+    '00': 'A',
+    '01': 'C',
+    '10': 'G',
+    '11': 'U'
   },
 
   pad: function( bin ){
@@ -16,7 +23,7 @@ Helper = {
     return bin;
   },
 
-  partition: function( text, parts ){
+  partition: function( text, parts, callback=null ){
     var partitions = [];
     var sess = '';
 
@@ -24,6 +31,10 @@ Helper = {
       sess += text[x];
 
       if( sess.length==parts || x==text.length-1 ){
+        if( callback ){
+          callback( sess );
+        }
+
         partitions.push( sess );
         sess = '';
       }
@@ -39,6 +50,18 @@ Helper = {
   fromDNABase: function( base ){
     for( x in Helper.dnaNucleotides ){
       if( base==Helper.dnaNucleotides[x] ){
+        return x;
+      }
+    }
+  },
+
+  toRNABase: function( bin ){
+    return Helper.rnaNucleotides[bin];
+  },
+
+  fromRNABase: function( base ){
+    for( x in Helper.rnaNucleotides ){
+      if( base==Helper.rnaNucleotides[x] ){
         return x;
       }
     }
@@ -104,20 +127,52 @@ Helper = {
     }
   },
 
-  keyToBin: function( key ){
-    key = btoa(key.toString()).substring(0, 15);
+  keyFunc: function ( key ){
     var x;
+    var _key = 0;
 
-    var dec = [];
-    var bin = [];
+    var _w = {};
 
     for( x=0; x<key.length; x++ ){
-      dec.push( key.charCodeAt(x) );
-      bin.push( Helper.pad( dec[x].toString(2) ) );
+      char = key[x];
+      if( _w[char] ){
+        _w[char]++; 
+      } else {
+        _w[char] = 1;
+      }
     }
-    var binCompact = bin.join("");
 
-    return binCompact;
+    for( x=0; x<key.length; x++ ){
+      var i = key.charCodeAt(x);
+      var w = _w[key[x]];
+
+      if( w==key.length ){
+        w--;
+      }
+
+      if( x == 0 ){
+        _x = 1;
+      } else {
+        _x = x;
+      }
+
+      _key ^= ((i*key.length/w*_x));
+    }
+
+    return _key;
+  },
+
+  keyToBin: function( key ){
+    key = Helper.keyFunc( key );
+
+    return key%256;
+  },
+
+  rnsKeyToBin: function( key, mod ){
+    key = Helper.keyFunc( key );
+    key = Helper.forward( key, [49, 43, 37] );
+
+    return key[0]^key[1]^key[2];
   },
 
   addZeros: function( text, count ){
