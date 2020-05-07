@@ -1,5 +1,5 @@
 
-Helper = {
+var Helper = {
   
   dnaNucleotides: {
     '00': 'A',
