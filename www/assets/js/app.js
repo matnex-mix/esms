@@ -174,23 +174,27 @@ function sendMessage(){
 }
 
 function locationHashChanged() {
-	if( location.hash ){
-	    el = $('[href="'+location.hash+'"]');
+	try {
+		if( location.hash ){
+		    el = $('[href="'+location.hash+'"]');
 
-	    if( el.length ){
-	    	el = el[0];
+		    if( el.length ){
+		    	el = el[0];
 
-	    	body = el.getAttribute('body');
-	    	key = prompt('Secure key?');
+		    	body = el.getAttribute('body');
+		    	key = prompt('Secure key?');
 
-	    	if( key ){
-	    		msg = ALGO.decrypt( key, body );
-	    		$('#real-message').html( msg );
-	    		$('#show-message').modal();
-	    	}
-	    }
+		    	if( key ){
+		    		msg = ALGO.decrypt( key, body );
+		    		$('#real-message').html( msg );
+		    		$('#show-message').modal();
+		    	}
+		    }
 
-	    location.hash = '';
+		    location.hash = '';
+		}
+	} catch ( err ){
+		alert( err.toString() )
 	}
 }
 
